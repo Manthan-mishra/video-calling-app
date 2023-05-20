@@ -1,5 +1,5 @@
 import React from 'react';
-import { EuiProvider } from '@elastic/eui';
+import { EuiProvider,EuiThemeProvider } from '@elastic/eui';
 import "@elastic/eui/dist/eui_theme_light.css";
 import { Route, Routes } from "react-router-dom";
 // import CreateMeeting from "./pages/CreateMeeting";
@@ -13,19 +13,22 @@ import Login from "./pages/Login";
 
 
 const App = () => {
+  const overrides = {
+    colors: {
+      LIGHT: { primary: "#0b5cff" },
+      DARK: { primary: "#0b5cff" },
+    },
+  };
   return (
     <EuiProvider>
+       <EuiThemeProvider modify={overrides}>
+
        <Routes>
             <Route path="/login" element={<Login />} />
-            {/* <Route path="/create" element={<CreateMeeting />} /> */}
-            {/* <Route path="/create1on1" element={<OneOnOneMeeting />} /> */}
-            {/* <Route path="/videoconference" element={<VideoConference />} />
-            <Route path="/mymeetings" element={<MyMeetings />} />
-            <Route path="/join/:id" element={<JoinMeeting />} />
-            <Route path="/meetings" element={<Meeting />} /> */}
             <Route path="/" element={<Dashboard />} />
             <Route path="*" element={<Login />} />
           </Routes>
+       </EuiThemeProvider>
     </EuiProvider>
   );
 }
