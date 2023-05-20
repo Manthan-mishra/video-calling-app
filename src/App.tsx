@@ -1,7 +1,10 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
+import { EuiThemeColorMode } from "@elastic/eui/src/services/theme";
 import { EuiProvider,EuiThemeProvider } from '@elastic/eui';
-import "@elastic/eui/dist/eui_theme_light.css";
+import ThemeSelector from "./components/ThemeSelector";
 import { Route, Routes } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useAppSelector } from "./app/hooks";
 // import CreateMeeting from "./pages/CreateMeeting";
 import Dashboard from "./pages/Dashboard";
 // import JoinMeeting from "./pages/JoinMeeting";
@@ -13,6 +16,28 @@ import Login from "./pages/Login";
 
 
 const App = () => {
+
+  const dispatch = useDispatch();
+  const isDarkTheme = useAppSelector((zoomApp) => zoomApp.auth.isDarkTheme);
+  const [theme, setTheme] = useState<EuiThemeColorMode>("light");
+  const [isInitialEffect, setIsInitialEffect] = useState(true);
+
+  useEffect(() => {
+    const theme = localStorage.getItem("zoom-theme");
+    if (theme) {
+      setTheme(theme as EuiThemeColorMode);
+    } else {
+      localStorage.setItem("zoom-theme", "light");
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isInitialEffect) setIsInitialEffect(false);
+    else {
+      window.location.reload();
+    }
+  }, [isDarkTheme]);
+
   const overrides = {
     colors: {
       LIGHT: { primary: "#0b5cff" },
@@ -20,7 +45,8 @@ const App = () => {
     },
   };
   return (
-    <EuiProvider>
+    <ThemeSelector>
+    <EuiProvider  colorMode={theme}>
        <EuiThemeProvider modify={overrides}>
 
        <Routes>
@@ -30,6 +56,7 @@ const App = () => {
           </Routes>
        </EuiThemeProvider>
     </EuiProvider>
+    </ThemeSelector>
   );
 }
 
