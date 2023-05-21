@@ -11,7 +11,7 @@ import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 // import Meeting from "./pages/Meeting";
 // import MyMeetings from "./pages/MyMeetings";
-// import OneOnOneMeeting from "./pages/OneOnOneMeeting";
+import OneOnOneMeeting from "./pages/OneOnOneMeeting";
 // import VideoConference from "./pages/VideoConference";
 
 
@@ -52,6 +52,7 @@ const App = () => {
        <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/create" element={<CreateMeeting />} />
+            <Route path="/create1on1" element={<OneOnOneMeeting />} />
             <Route path="/" element={<Dashboard />} />
             <Route path="*" element={<Login />} />
           </Routes>

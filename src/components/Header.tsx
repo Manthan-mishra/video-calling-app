@@ -7,6 +7,7 @@ import {
     EuiText,
     EuiTextColor,
   } from "@elastic/eui";
+  import {getCreateMeetingBreadCrumbs} from "../utils/breadCrumbs";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { firebaseAuth } from "../utils/FirebaseConfig";
 import { signOut } from "firebase/auth";
@@ -22,6 +23,12 @@ const Header = () => {
     const [breadCrumbs, setBreadCrumbs] = useState([{text:"Dashboard"}]);
     const [isResponsive, setIsResponsive] = useState(false);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+      const { pathname } = location;
+      if (pathname === "/create") 
+      setBreadCrumbs(getCreateMeetingBreadCrumbs(navigate));
+      }, [location, navigate]);
 
     const logout = () => {
       signOut(firebaseAuth);
@@ -101,8 +108,7 @@ const Header = () => {
           </EuiFlexItem>
         </EuiFlexGroup>,
       ],
-      },
-      
+      }, 
   ];
     const responsiveSection = [
       {
