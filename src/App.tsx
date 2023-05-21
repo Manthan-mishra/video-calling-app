@@ -5,7 +5,7 @@ import ThemeSelector from "./components/ThemeSelector";
 import { Route, Routes } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "./app/hooks";
-// import CreateMeeting from "./pages/CreateMeeting";
+import CreateMeeting from "./pages/CreateMeeting";
 import Dashboard from "./pages/Dashboard";
 // import JoinMeeting from "./pages/JoinMeeting";
 import Login from "./pages/Login";
@@ -51,6 +51,7 @@ const App = () => {
 
        <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path="/create" element={<CreateMeeting />} />
             <Route path="/" element={<Dashboard />} />
             <Route path="*" element={<Login />} />
           </Routes>
